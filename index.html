@@ -71,41 +71,35 @@ Tap to Open 💌
 </audio>
 
 <script>
+  const invitationURL =
+    "https://sharaxirfanengagement.my.canva.site/engagement-invitation-2026";
 
-function openInvitation() {
-
-  const invitation = window.open(
-  "https://sharaxirfanengagement.my.canva.site/engagement-invitation-2026",
-  "_blank"
-);
+  const button = document.getElementById("openButton");
   const music = document.getElementById("music");
+  const status = document.getElementById("status");
 
-  music.play().then(() => {
+  button.addEventListener("click", function () {
 
-    document.getElementById("status").innerText =
+    // Start music immediately from the first user tap.
+    music.currentTime = 0;
+    const musicPromise = music.play();
 
-      "Music is playing. Keep this tab open ♫";
+    // Open Canva in a new tab.
+    const invitationTab = window.open(invitationURL, "_blank");
 
-  }).catch(() => {
+    if (!invitationTab) {
+      status.textContent =
+        "Please allow pop-ups to open the invitation.";
+    }
 
-    document.getElementById("status").innerText =
-
-      "Please tap again to start the music.";
-
+    if (musicPromise !== undefined) {
+      musicPromise.then(() => {
+        status.textContent = "Enjoy the music ♡";
+      }).catch((error) => {
+        status.textContent =
+          "Music could not start. Please check the audio file.";
+        console.error("Audio playback error:", error);
+      });
+    }
   });
-
-  if (!invitation) {
-
-    document.getElementById("status").innerText =
-
-      "Please allow pop-ups and tap again.";
-
-  }
-
-}
-
 </script>
-
-</body>
-
-</html>
