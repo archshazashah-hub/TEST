@@ -1,102 +1,109 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f0e7">
+  <title>Shara & Irfan | Engagement Invitation</title>
 
-<meta charset="UTF-8">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: #f7f0e7;
+    }
 
-<title>Shara & Irfan</title>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
 
-<style>
+    .invitation {
+      position: relative;
+      width: 100%;
+      max-width: 680px;
+      line-height: 0;
+    }
 
-body {
+    .invitation img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
 
-  background: #f8f1ee;
+    .open-link {
+      position: absolute;
+      left: 26.4%;
+      width: 47.2%;
+      top: 87.5%;
+      height: 7.5%;
+      border-radius: 14px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-  color: #594944;
+    .open-link:focus-visible {
+      outline: 3px solid #8b6848;
+      outline-offset: 3px;
+    }
 
-  font-family: Georgia, serif;
-
-  text-align: center;
-
-  padding-top: 25vh;
-
-}
-
-button {
-
-  padding: 15px 28px;
-
-  border: 1px solid #b99b91;
-
-  border-radius: 30px;
-
-  background: #fffaf7;
-
-  color: #594944;
-
-  font-size: 16px;
-
-  cursor: pointer;
-
-}
-
-</style>
-
+    .hint {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
 </head>
 
 <body>
 
-<h1>💌</h1>
+  <main class="invitation">
 
-<h1>Shara & Irfan</h1>
+    <img
+      src="a_clean_elegant_wedding_invitation_style_webpage.png"
+      alt="You are cordially invited. Shara and Irfan. Tap to Open."
+    >
 
-<p>YOU ARE INVITED</p>
+    <a
+      class="open-link"
+      href="https://sharaxirfanengagement.my.canva.site/engagement-invitation-2026"
+      target="_blank"
+      rel="noopener"
+      aria-label="Tap to open Shara and Irfan's engagement invitation"
+    >
+      <span class="hint">Tap to Open</span>
+    </a>
 
-<button onclick="openInvitation()">
+  </main>
 
-Tap to Open 💌
+  <audio
+    id="music"
+    src="a-couple-minutes-instrumental.mp3"
+    preload="auto"
+    loop
+  ></audio>
 
-</button>
+  <script>
+    const openLink = document.querySelector(".open-link");
+    const music = document.getElementById("music");
 
-<p id="status"></p>
-
-<audio
-  id="music"
-  loop
-  preload="auto"
-  playsinline
-  src="a-couple-minutes-instrumental.mp3">
-</audio>
-
-const button = document.getElementById("openButton");
-const music = document.getElementById("music");
-const status = document.getElementById("status");
-
-button.addEventListener("click", () => {
-
-  // Request audio playback immediately during the tap.
-  music.muted = false;
-music.volume = 1;
-music.currentTime = 0;
-
-const playRequest = music.play();
-
-  // Open the Canva invitation in a new tab.
-  window.open(
-    "https://sharaxirfanengagement.my.canva.site/engagement-invitation-2026",
-    "_blank"
-  );
-
-  if (playRequest) {
-    playRequest.then(() => {
-      status.textContent = "Enjoy the music ♡";
-    }).catch((error) => {
-      status.textContent = "Music could not start: " + error.name;
+    openLink.addEventListener("click", function () {
+      music.play().catch(function () {
+        // Safari may restrict background music playback.
+      });
     });
-  }
-});
-</script>
+  </script>
+
+</body>
+</html>
