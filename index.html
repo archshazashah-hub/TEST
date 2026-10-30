@@ -79,7 +79,11 @@ const status = document.getElementById("status");
 button.addEventListener("click", () => {
 
   // Request audio playback immediately during the tap.
-  const playRequest = music.play();
+  music.muted = false;
+music.volume = 1;
+music.currentTime = 0;
+
+const playRequest = music.play();
 
   // Open the Canva invitation in a new tab.
   window.open(
