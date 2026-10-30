@@ -64,42 +64,35 @@ Tap to Open 💌
 
 <p id="status"></p>
 
-<audio id="music" loop>
-
-  <source src="a-couple-minutes-instrumental.mp3" type="audio/mpeg">
-
+<audio
+  id="music"
+  loop
+  preload="auto"
+  playsinline
+  src="a-couple-minutes-instrumental.mp3">
 </audio>
 
-<script>
-  const invitationURL =
-    "https://sharaxirfanengagement.my.canva.site/engagement-invitation-2026";
+const button = document.getElementById("openButton");
+const music = document.getElementById("music");
+const status = document.getElementById("status");
 
-  const button = document.getElementById("openButton");
-  const music = document.getElementById("music");
-  const status = document.getElementById("status");
+button.addEventListener("click", () => {
 
-  button.addEventListener("click", function () {
+  // Request audio playback immediately during the tap.
+  const playRequest = music.play();
 
-    // Start music immediately from the first user tap.
-    music.currentTime = 0;
-    const musicPromise = music.play();
+  // Open the Canva invitation in a new tab.
+  window.open(
+    "https://sharaxirfanengagement.my.canva.site/engagement-invitation-2026",
+    "_blank"
+  );
 
-    // Open Canva in a new tab.
-    const invitationTab = window.open(invitationURL, "_blank");
-
-    if (!invitationTab) {
-      status.textContent =
-        "Please allow pop-ups to open the invitation.";
-    }
-
-    if (musicPromise !== undefined) {
-      musicPromise.then(() => {
-        status.textContent = "Enjoy the music ♡";
-      }).catch((error) => {
-        status.textContent =
-          "Music could not start. Please check the audio file.";
-        console.error("Audio playback error:", error);
-      });
-    }
-  });
+  if (playRequest) {
+    playRequest.then(() => {
+      status.textContent = "Enjoy the music ♡";
+    }).catch((error) => {
+      status.textContent = "Music could not start: " + error.name;
+    });
+  }
+});
 </script>
